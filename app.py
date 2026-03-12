@@ -40,7 +40,7 @@ def callback():
                 }
             )
 
-            answer = response.json()["answer"]
+            answer = dify_response.get("answer") or dify_response.get("text")
 
             reply_token = event["replyToken"]
 
