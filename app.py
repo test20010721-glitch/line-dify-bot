@@ -36,7 +36,7 @@ def callback():
 
             response = requests.post(dify_url, headers=headers, json=data)
             dify_response = response.json()
-
+            print(dify_response)
             answer = dify_response.get("answer", "AIの返信を取得できませんでした")
 
             # LINE reply
