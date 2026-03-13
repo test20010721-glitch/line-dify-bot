@@ -38,7 +38,7 @@ def callback():
 
             dify_response = response.json()
 
-            answer = dify_response.get("answer", "AIからの返信が取得できませんでした")
+          answer = dify_response.get("data", {}).get("answer", "AIの返信取得失敗")
 
             # LINE返信
             line_url = "https://api.line.me/v2/bot/message/reply"
