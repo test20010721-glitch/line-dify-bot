@@ -1,11 +1,11 @@
+
+
 from flask import Flask, request
 import requests
 import os
-import json
 
 app = Flask(__name__)
 
-# 環境変数
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 DIFY_API_KEY = os.getenv("DIFY_API_KEY")
 
@@ -18,7 +18,7 @@ def callback():
             user_message = event["message"]["text"]
             reply_token = event["replyToken"]
 
-            # Dify APIに送信
+            # Dify API
             dify_url = "https://api.dify.ai/v1/chat-messages"
 
             headers = {
@@ -35,12 +35,11 @@ def callback():
             }
 
             response = requests.post(dify_url, headers=headers, json=data)
-
             dify_response = response.json()
 
-          answer = dify_response.get("data", {}).get("answer", "AIの返信取得失敗")
+            answer = dify_response.get("answer", "AIの返信を取得できませんでした")
 
-            # LINE返信
+            # LINE reply
             line_url = "https://api.line.me/v2/bot/message/reply"
 
             line_headers = {
